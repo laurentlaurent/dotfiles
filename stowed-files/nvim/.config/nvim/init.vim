@@ -12,7 +12,7 @@ tnoremap <Esc> <C-\><C-n>
 " start terminal in insert mode
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 
-" open terminal on ctrl+n
+" open terminal on alt+n
 function! OpenTerminal()
   split term://bash
   resize 10
@@ -20,15 +20,23 @@ endfunction
 nnoremap <M-n> :call OpenTerminal()<CR>
 
 " == SWITCHING BETWEEN PANELS ======================
-" use alt+hjkl to move between split/vsplit panels
+" use alt+hjkl or arrow keys to move between split/vsplit panels
 tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-Left> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-Down> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-Up> <C-\><C-n><C-w>k
 tnoremap <A-l> <C-\><C-n><C-w>l
+tnoremap <A-Right> <C-\><C-n><C-w>l
 nnoremap <A-h> <C-w>h
+nnoremap <A-Left> <C-w>h
 nnoremap <A-j> <C-w>j
+nnoremap <A-Down> <C-w>j
 nnoremap <A-k> <C-w>k
+nnoremap <A-Up> <C-w>k
 nnoremap <A-l> <C-w>l
+nnoremap <A-Right> <C-w>l
 
 " == SET FOLD TO SPACEBAR ==========================
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
