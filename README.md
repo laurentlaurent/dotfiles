@@ -1,4 +1,4 @@
 # dotfiles
 
-- Nvim
+- Neovim
   - Requisites: node, yum
