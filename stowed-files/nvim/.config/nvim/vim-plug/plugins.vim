@@ -19,25 +19,25 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'ryanoasis/vim-devicons'
 
   " FuzzySearch
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
+  " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  " Plug 'junegunn/fzf.vim'
 
   " Vim-visual-multi
-  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+  "Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
   " Web development core plugins
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'prettier/vim-prettier' , {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown'] }
-  Plug 'pangloss/vim-javascript'
-  Plug 'maxmellon/vim-jsx-pretty'
-  Plug 'leafgarland/typescript-vim'
-  Plug 'peitalin/vim-jsx-typescript'
+  "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  "Plug 'prettier/vim-prettier' , {
+  "\ 'do': 'yarn install',
+  "\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown'] }
+  "Plug 'pangloss/vim-javascript'
+  "Plug 'maxmellon/vim-jsx-pretty'
+  "Plug 'leafgarland/typescript-vim'
+  "Plug 'peitalin/vim-jsx-typescript'
 
   " Web development extra plugins
-  Plug 'SirVer/ultisnips'
-  Plug 'mlaursen/vim-react-snippets'
+  "Plug 'SirVer/ultisnips'
+  "Plug 'mlaursen/vim-react-snippets'
   Plug 'tpope/vim-fugitive'
 
   " Vim-airline
@@ -63,20 +63,20 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 nnoremap <silent> <M-b> :NERDTreeToggle<CR>
 
 " == FZF SEARCH MAPPINGS ===========================
-nnoremap <C-p> :FZF<CR>
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit'
-  \}
+"nnoremap <C-p> :FZF<CR>
+"let g:fzf_action = {
+  "\ 'ctrl-t': 'tab split',
+  "\ 'ctrl-s': 'split',
+  "\ 'ctrl-v': 'vsplit'
+  "\}
 " install the_silver_searcher for this next setting
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+"let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " == CoC CONFIG ====================================
-let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+"let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
 
 " == Prettier Config ===============================
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-let g:prettier#config#tab_width = 2
-let g:prettier#config#use_tabs = 'false'
+"let g:prettier#autoformat = 0
+"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+"let g:prettier#config#tab_width = 2
+"let g:prettier#config#use_tabs = 'false'

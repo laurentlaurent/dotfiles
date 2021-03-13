@@ -41,8 +41,9 @@ nnoremap <A-Right> <C-w>l
 " == SET FOLD TO SPACEBAR ==========================
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
+set foldenable
 set foldmethod=syntax
-set foldlevelstart=1
+set foldlevelstart=10
 
 let javaScript_fold=1         " JavaScript
 let perl_fold=1               " Perl
@@ -54,6 +55,22 @@ let vimsyn_folding='af'       " Vim script
 let xml_syntax_folding=1      " XML
 
 " == NeoVIM SETTINGS ===============================
-set incsearch ignorecase smartcase hlsearch
+syntax enable " enable syntax processing
+set tabstop=2 softtabstop=2 expandtab " tab => 2spaces
+set number " show line number
+set showcmd " show command in bottom bar
+set cursorline " highlight current line
+set wildmenu " visual autocomplete for command menu
+set lazyredraw " limit redraw
+set showmatch " highlight matching parens
 
+set incsearch ignorecase smartcase hlsearch " search options
 
+" == Key bindings remap ============================
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+let mapleader=","
+inoremap jk <esc> " jk is escape
+nnoremap <leader>u :GundoToggle<CR>
+nnoremap <leader>s :mksession<CR>
