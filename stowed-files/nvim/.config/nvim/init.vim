@@ -66,11 +66,18 @@ set showmatch " highlight matching parens
 
 set incsearch ignorecase smartcase hlsearch " search options
 
+" From how to do 90% without plugins
+set nocompatible " bleh vi support
+filetype plugin on " vim file plugin for netrw (will it work with neovim?)
+set path +=** " Finding files - enables tab-completion for file tasks
+set wildmenu " Finding files - displays all matching files when tab complete
+
+
 " == Key bindings remap ============================
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
 let mapleader=","
-inoremap jk <esc> " jk is escape
+inoremap jj <esc> " jj is escape
 nnoremap <leader>u :GundoToggle<CR>
 nnoremap <leader>s :mksession<CR>
