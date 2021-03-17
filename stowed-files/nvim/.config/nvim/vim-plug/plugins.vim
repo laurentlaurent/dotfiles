@@ -13,6 +13,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'dracula/vim'                                                            
   Plug 'dikiaap/minimalist'
   Plug 'joshdick/onedark.vim'
+  Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 
   " FileBrowser
   Plug 'scrooloose/nerdtree'
@@ -50,7 +51,7 @@ if (has("termguicolors"))
  set termguicolors
 endif
 syntax enable
-colorscheme onedark
+colorscheme nord 
 
 " == FILE BROWSER CONFIG ===========================
 let g:NERDTreeShowHidden = 1
