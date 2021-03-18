@@ -9,6 +9,7 @@ EXPORT_LOCATION="$HOME$CONFIG_LOCATION"
 #cp -Rf ./polybar-nord-theme/* $DOTFILES_LOCATION
 #rm ./polybar-nord-theme -rf
 
+mkdir -p $EXPORT_LOCATION
 echo "Copying polybar files to $EXPORT_LOCATION"
 cp -Rf $DOTFILES_LOCATION/* $EXPORT_LOCATION/
 

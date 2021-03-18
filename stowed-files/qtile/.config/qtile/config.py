@@ -23,14 +23,20 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import os
+import subprocess
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
 
+from libqtile import hook
 from typing import List  # noqa: F401
 
+# My variables
 mod = "mod4"
+myTerm = "kitty"
+myBrowser = "firefox-dev"
 
 keys = [
     # Resizing windows (careful when in Windows VM)
@@ -65,8 +71,8 @@ keys = [
 
     # Applications launching
     Key([mod], "r", lazy.spawncmd()),
-    Key([mod], "Return", lazy.spawn("kitty")),
-    Key([mod], "Home", lazy.spawn("firefox-dev")),
+    Key([mod], "Return", lazy.spawn(myTerm)),
+    Key([mod], "Home", lazy.spawn(myBrowser)),
     
     # QTile control
     Key([mod, "control"], "r", lazy.restart()),
@@ -84,9 +90,26 @@ for i in groups:
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
     ])
 
+layout_theme = {
+        "border_width": 3,
+        "margin": 5,
+        "border_focus": "89aaff",
+        "border_normal": "5e81ac"
+        }
+
 layouts = [
-    layout.Max(),
-    layout.Stack(num_stacks=2)
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
+    layout.Matrix(**layout_theme),
+    layout.Max(**layout_theme),
+    layout.Stack(num_stacks=2, **layout_theme),
+    # layout.Bsp(**layout_theme),
+    # layout.Columns(**layout_theme),
+    # layout.RatioTile(**layout_theme),
+    # layout.VerticalTile(**layout_theme),
+    # layout.Zoomy(**layout_theme),
+    # layout.Tile(shift_windows=True, **layout_theme),
+    layout.Floating(**layout_theme)
 ]
 
 widget_defaults = dict(
@@ -145,6 +168,11 @@ floating_layout = layout.Floating(float_rules=[
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+    subprocess.call([home])
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
