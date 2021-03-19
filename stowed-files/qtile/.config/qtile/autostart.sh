@@ -1,5 +1,5 @@
 #!/bin/sh
-feh --bg-scale ~/Pictures/Wallpaper/wallpaper.jpg &
+feh --bg-scale ~/dotfiles/stowed-files/wallpapers/wallpaper.jpg &
 picom &
 kitty -d ~ &
 kitty -d ~/dotfiles/ &
