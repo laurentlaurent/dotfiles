@@ -35,23 +35,39 @@ from typing import List  # noqa: F401
 
 # My variables
 mod = "mod4"
+alt = "mod1"
 myTerm = "kitty"
 myBrowser = "firefox-dev"
 
 keys = [
-    # Resizing windows (careful when in Windows VM)
-    Key([mod], "h", lazy.layout.shrink_main()),
-    Key([mod], "l", lazy.layout.grow_main()),
-    Key([mod], "n", lazy.layout.normalize()),
-    Key([mod], "o", lazy.layout.maximize()),
-
     # Switch between windows in current stack pane
-    Key([mod], "k", lazy.layout.down()),
-    Key([mod], "j", lazy.layout.up()),
+    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "k", lazy.layout.up()),
+    Key([mod], "h", lazy.layout.left()),
+    Key([mod], "l", lazy.layout.right()),
 
-    # Move windows up or down in current stack
-    Key([mod, "control"], "k", lazy.layout.shuffle_down()),
-    Key([mod, "control"], "j", lazy.layout.shuffle_up()),
+    # Moving windows inside the stack
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
+    
+    # Flipping windows
+    Key([mod, alt], "j", lazy.layout.flip_down()),
+    Key([mod, alt], "k", lazy.layout.flip_up()),
+    Key([mod, alt], "h", lazy.layout.flip_left()),
+    Key([mod, alt], "l", lazy.layout.flip_right()),
+
+    # Resizing windows (careful when in Windows VM)
+    # Key([mod], "h", lazy.layout.shrink_main()),
+    # Key([mod], "l", lazy.layout.grow_main()),
+    # Key([mod], "n", lazy.layout.normalize()),
+    # Key([mod], "m", lazy.layout.maximize()),
+    Key([mod, "control"], "j", lazy.layout.grow_down()),
+    Key([mod, "control"], "k", lazy.layout.grow_up()),
+    Key([mod, "control"], "h", lazy.layout.grow_left()),
+    Key([mod, "control"], "l", lazy.layout.grow_right()),
+    Key([mod, "shift"], "n", lazy.layout.normalize()),
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
@@ -93,28 +109,28 @@ for i in groups:
 layout_theme = {
         "border_width": 3,
         "margin": 5,
-        "border_focus": "89aaff",
-        "border_normal": "5e81ac"
+        "border_focus": "8fbcbb",
+        "border_normal": "4c566a"
         }
 
 layouts = [
-    layout.MonadTall(**layout_theme),
-    layout.MonadWide(**layout_theme),
-    layout.Matrix(**layout_theme),
-    layout.Max(**layout_theme),
+    layout.Bsp(**layout_theme),
+    # layout.MonadTall(**layout_theme),
+    # layout.MonadWide(**layout_theme),
+    # layout.Matrix(**layout_theme),
     layout.Stack(num_stacks=2, **layout_theme),
-    # layout.Bsp(**layout_theme),
     # layout.Columns(**layout_theme),
     # layout.RatioTile(**layout_theme),
     # layout.VerticalTile(**layout_theme),
     # layout.Zoomy(**layout_theme),
     # layout.Tile(shift_windows=True, **layout_theme),
+    layout.Max(**layout_theme),
     layout.Floating(**layout_theme)
 ]
 
 widget_defaults = dict(
     font='RobotoMono Nerd Font',
-    fontsize=12,
+    fontsize=14,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
