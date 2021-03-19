@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
-DOTFILES_LOCATION="../stowed-files/polybar/.config/polybar"
+PATH_TO_DOTFILES="/dotfiles/stowed-files/polybar/.config/polybar"
+IMPORT_LOCATION="$HOME$PATH_TO_DOTFILES"
+
 CONFIG_LOCATION="/.config/polybar"
 EXPORT_LOCATION="$HOME$CONFIG_LOCATION"
 
@@ -11,5 +13,4 @@ EXPORT_LOCATION="$HOME$CONFIG_LOCATION"
 
 mkdir -p $EXPORT_LOCATION
 echo "Copying polybar files to $EXPORT_LOCATION"
-cp -Rf $DOTFILES_LOCATION/* $EXPORT_LOCATION/
-
+cp -Rf $IMPORT_LOCATION/* $EXPORT_LOCATION/
