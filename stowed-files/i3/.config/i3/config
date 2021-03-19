@@ -1,5 +1,5 @@
 # For copy/pasting to work in Fedora + i3
-exec vmware-user &
+# exec vmware-user &
 exec --no-startup-id feh --bg-scale ~/dotfiles/stowed-files/wallpapers/wallpaper.jpg
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh dark
 
