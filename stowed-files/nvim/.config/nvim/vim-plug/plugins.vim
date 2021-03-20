@@ -46,10 +46,10 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'vim-airline/vim-airline-themes'
 call plug#end()                                                                 
 
-" == SET DRACULA AS THEME ==========================
-if (has("termguicolors"))
- set termguicolors
-endif
+" == SET THEME ==========================
+" if (has("termguicolors"))
+ " set termguicolors
+" endif
 syntax enable
 colorscheme nord 
 

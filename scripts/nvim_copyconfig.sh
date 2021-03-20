@@ -1,5 +1,4 @@
 #!/bin/bash -e
-
 PATH_TO_DOTFILES="/dotfiles/stowed-files/nvim/.config/nvim"
 IMPORT_LOCATION="$HOME$PATH_TO_DOTFILES"
 

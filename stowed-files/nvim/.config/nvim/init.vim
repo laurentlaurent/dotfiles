@@ -56,7 +56,7 @@ let xml_syntax_folding=1      " XML
 
 " == NeoVIM SETTINGS ===============================
 syntax enable " enable syntax processing
-set tabstop=2 softtabstop=2 expandtab " tab => 2spaces
+set tabstop=2 softtabstop=2 " tab => 2spaces
 set number " show line number
 set showcmd " show command in bottom bar
 set cursorline " highlight current line

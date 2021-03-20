@@ -36,8 +36,8 @@ from typing import List  # noqa: F401
 # My variables
 mod = "mod4"
 alt = "mod1"
-myTerm = "kitty"
-myBrowser = "firefox-dev"
+myTerm = "alacritty"
+myBrowser = "firefox-developer-edition"
 
 keys = [
     # Switch between windows in current stack pane
