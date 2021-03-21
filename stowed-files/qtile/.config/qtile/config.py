@@ -38,9 +38,10 @@ mod = "mod4"
 alt = "mod1"
 myTerm = "alacritty"
 myBrowser = "firefox-developer-edition"
+myLauncher = "rofi -show run"
 myTwitchChat = "alacritty tc connect iamL2"
 
-nordColor1 = "#4c566a"
+nordColor1 = "#81a1c1"
 nordColor2 = "#434c5e"
 nordColor3 = "#3b4252"
 nordColor4 = "#2e3440"
@@ -106,7 +107,8 @@ keys = [
     Key([mod], "w", lazy.window.kill()),
 
     # Applications launching
-    Key([mod], "r", lazy.spawncmd()),
+    Key([mod], "r", lazy.spawn(myLauncher)),
+    Key([mod, "shift"], "r", lazy.spawncmd()), 
     Key([mod], "Return", lazy.spawn(myTerm)),
     Key([mod], "Home", lazy.spawn(myBrowser)),
     Key([mod], "End", lazy.spawn(myTwitchChat)),
@@ -149,6 +151,13 @@ layouts = [
     layout.Zoomy(**layout_theme)
 ]
 
+widget_theme = {
+        "background": nordColor3,
+        "foreground": nordColor1,
+        "fontshadow": nordColor4,
+        "padding": 5 
+        }
+
 widget_defaults = dict(
     font='RobotoMono Nerd Font',
     fontsize=14,
@@ -160,29 +169,46 @@ screens = [
     Screen(
        top=bar.Bar(
             [
+                widget.CurrentLayoutIcon(scale = 0.7, **widget_theme),
+                widget.CurrentLayout(**widget_theme),
                 widget.GroupBox(
-                    background=nordColor3
+                    active=nordColor1,
+                    this_current_screen_border=nordColor2,
+                    inactive=nordColor2,
+                    **widget_theme
                     ),
                 widget.Prompt(
-                    background=nordColor3
+                    **widget_theme
                     ),
                 widget.WindowName(
-                    background=nordColor3
+                    **widget_theme
                     ),
-                widget.TextBox(
-                    "Laurent pretends to hack",
-                    name="poser",
-                    background=nordColor3
+                widget.WindowCount(
+                    text_format='[win_open: {num}]',
+                    **widget_theme
                     ),
-                widget.Systray(
-                    background=nordColor3
+                widget.Memory(
+                    format='[mem_usage: {MemUsed: .0f}MB]',
+                    **widget_theme
+                    ),
+                widget.CPU(
+                    format='[cpu_usage: {load_percent}]',
+                    **widget_theme
+                    ),
+                widget.WidgetBox(
+                    widgets = [
+                            widget.Systray(
+                            **widget_theme
+                            )
+                        ],
+                    **widget_theme
                     ),
                 widget.Clock(
-                    background=nordColor3,
+                    **widget_theme,
                     format='%Y-%m-%d %a %I:%M %p'
                     ),
             ],
-            24,
+            24, margin=[10, 7, 3, 7] # N E S W
         ),
     ),
 ]
