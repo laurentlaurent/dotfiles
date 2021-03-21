@@ -38,6 +38,12 @@ mod = "mod4"
 alt = "mod1"
 myTerm = "alacritty"
 myBrowser = "firefox-developer-edition"
+myTwitchChat = "alacritty tc connect iamL2"
+
+nordColor1 = "#4c566a"
+nordColor2 = "#434c5e"
+nordColor3 = "#3b4252"
+nordColor4 = "#2e3440"
 
 keys = [
     # Switch between windows in current stack pane
@@ -61,19 +67,32 @@ keys = [
     # Resizing windows (careful when in Windows VM)
     # Key([mod], "h", lazy.layout.shrink_main()),
     # Key([mod], "l", lazy.layout.grow_main()),
-    # Key([mod], "n", lazy.layout.normalize()),
-    # Key([mod], "m", lazy.layout.maximize()),
-    Key([mod, "control"], "j", lazy.layout.grow_down()),
-    Key([mod, "control"], "k", lazy.layout.grow_up()),
-    Key([mod, "control"], "h", lazy.layout.grow_left()),
-    Key([mod, "control"], "l", lazy.layout.grow_right()),
-    Key([mod, "shift"], "n", lazy.layout.normalize()),
+    Key([mod, "control"], "j", 
+        lazy.layout.grow_down(),
+        lazy.layout.shrink()
+        ),
+    Key([mod, "control"], "k", 
+        lazy.layout.grow_up(),
+        lazy.layout.grow()
+        ),
+    Key([mod, "control"], "h",
+        lazy.layout.grow_main(),
+        lazy.layout.grow_left()
+        ),
+    Key([mod, "control"], "l",
+        lazy.layout.shrink_main(),
+        lazy.layout.grow_right()
+        ),
+    Key([mod, "control"], "n", lazy.layout.normalize()),
+    Key([mod, "control"], "m", lazy.layout.maximize()),
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
 
     # Swap panes of split stack
-    Key([mod, "shift"], "space", lazy.layout.rotate()),
+    Key([mod, "shift"], "space", 
+        lazy.layout.rotate(), 
+        lazy.layout.flip()),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -82,6 +101,7 @@ keys = [
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
     # Toggle between different layouts as defined below
+    Key([mod, "shift"], "Tab", lazy.prev_layout()),
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "w", lazy.window.kill()),
 
@@ -89,6 +109,7 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
     Key([mod], "Return", lazy.spawn(myTerm)),
     Key([mod], "Home", lazy.spawn(myBrowser)),
+    Key([mod], "End", lazy.spawn(myTwitchChat)),
     
     # QTile control
     Key([mod, "control"], "r", lazy.restart()),
@@ -115,17 +136,17 @@ layout_theme = {
 
 layouts = [
     layout.Bsp(**layout_theme),
-    # layout.MonadTall(**layout_theme),
-    # layout.MonadWide(**layout_theme),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
     # layout.Matrix(**layout_theme),
     layout.Stack(num_stacks=2, **layout_theme),
     # layout.Columns(**layout_theme),
     # layout.RatioTile(**layout_theme),
     # layout.VerticalTile(**layout_theme),
-    # layout.Zoomy(**layout_theme),
     # layout.Tile(shift_windows=True, **layout_theme),
     layout.Max(**layout_theme),
-    layout.Floating(**layout_theme)
+    layout.Floating(**layout_theme),
+    layout.Zoomy(**layout_theme)
 ]
 
 widget_defaults = dict(
@@ -137,14 +158,29 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+       top=bar.Bar(
             [
-                widget.GroupBox(),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.TextBox("Laurent pretends to hack", name="default"),
-                widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+                widget.GroupBox(
+                    background=nordColor3
+                    ),
+                widget.Prompt(
+                    background=nordColor3
+                    ),
+                widget.WindowName(
+                    background=nordColor3
+                    ),
+                widget.TextBox(
+                    "Laurent pretends to hack",
+                    name="poser",
+                    background=nordColor3
+                    ),
+                widget.Systray(
+                    background=nordColor3
+                    ),
+                widget.Clock(
+                    background=nordColor3,
+                    format='%Y-%m-%d %a %I:%M %p'
+                    ),
             ],
             24,
         ),
@@ -185,9 +221,14 @@ floating_layout = layout.Floating(float_rules=[
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
+@hook.subscribe.startup
+def autostart_alyways():
+    home = os.path.expanduser('~/.config/qtile/autostart_always.sh')
+    subprocess.call([home])
+
 @hook.subscribe.startup_once
-def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+def autostart_once():
+    home = os.path.expanduser('~/.config/qtile/autostart_once.sh')
     subprocess.call([home])
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
