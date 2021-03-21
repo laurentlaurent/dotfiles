@@ -91,7 +91,7 @@ keys = [
     Key([mod], "space", lazy.layout.next()),
 
     # Swap panes of split stack
-    Key([mod, "shift"], "space", 
+    Key([mod, alt], "space", 
         lazy.layout.rotate(), 
         lazy.layout.flip()),
 
@@ -140,12 +140,7 @@ layouts = [
     layout.Bsp(**layout_theme),
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
-    # layout.Matrix(**layout_theme),
     layout.Stack(num_stacks=2, **layout_theme),
-    # layout.Columns(**layout_theme),
-    # layout.RatioTile(**layout_theme),
-    # layout.VerticalTile(**layout_theme),
-    # layout.Tile(shift_windows=True, **layout_theme),
     layout.Max(**layout_theme),
     layout.Floating(**layout_theme),
     layout.Zoomy(**layout_theme)
@@ -165,51 +160,75 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+# Defining default bar array
+default_bar_arr = [
+    widget.CurrentLayoutIcon(scale = 0.7, **widget_theme),
+    widget.CurrentLayout(**widget_theme),
+    widget.GroupBox(
+        active=nordColor1,
+        this_current_screen_border=nordColor1,
+        inactive=nordColor2,
+        **widget_theme
+        ),
+    widget.Prompt(
+        **widget_theme
+        ),
+    widget.WindowName(
+        **widget_theme
+        ),
+    widget.WindowCount(
+        text_format='[win_open: {num}]',
+        **widget_theme
+        )
+]
+# Defining main screen bar
+main_screen_bar = bar.Bar(
+    [
+        widget.CurrentLayoutIcon(scale = 0.7, **widget_theme),
+        widget.CurrentLayout(**widget_theme),
+        widget.GroupBox(
+            active=nordColor1,
+            this_current_screen_border=nordColor1,
+            inactive=nordColor2,
+            **widget_theme
+            ),
+        widget.Prompt(
+            **widget_theme
+            ),
+        widget.WindowName(
+            **widget_theme
+            ),
+        widget.WindowCount(
+            text_format='[win_open: {num}]',
+            **widget_theme
+            ),
+        widget.Memory(
+            format='[mem_usage: {MemUsed: .0f}MB]',
+            **widget_theme
+            ),
+        widget.CPU(
+            format='[cpu_usage: {load_percent}]',
+            **widget_theme
+            ),
+        widget.WidgetBox(
+            widgets = [
+                    widget.Systray(
+                        **widget_theme
+                    )
+                ],
+            **widget_theme
+            ),
+        widget.Clock(
+            **widget_theme,
+            format='%Y-%m-%d %a %I:%M %p'
+            ),
+    ],
+    24, margin=[10, 7, 3, 7] # N E S W
+)
+
 screens = [
     Screen(
-       top=bar.Bar(
-            [
-                widget.CurrentLayoutIcon(scale = 0.7, **widget_theme),
-                widget.CurrentLayout(**widget_theme),
-                widget.GroupBox(
-                    active=nordColor1,
-                    this_current_screen_border=nordColor2,
-                    inactive=nordColor2,
-                    **widget_theme
-                    ),
-                widget.Prompt(
-                    **widget_theme
-                    ),
-                widget.WindowName(
-                    **widget_theme
-                    ),
-                widget.WindowCount(
-                    text_format='[win_open: {num}]',
-                    **widget_theme
-                    ),
-                widget.Memory(
-                    format='[mem_usage: {MemUsed: .0f}MB]',
-                    **widget_theme
-                    ),
-                widget.CPU(
-                    format='[cpu_usage: {load_percent}]',
-                    **widget_theme
-                    ),
-                widget.WidgetBox(
-                    widgets = [
-                            widget.Systray(
-                            **widget_theme
-                            )
-                        ],
-                    **widget_theme
-                    ),
-                widget.Clock(
-                    **widget_theme,
-                    format='%Y-%m-%d %a %I:%M %p'
-                    ),
-            ],
-            24, margin=[10, 7, 3, 7] # N E S W
-        ),
+       top=main_screen_bar,
     ),
 ]
 
