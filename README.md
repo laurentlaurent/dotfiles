@@ -1,6 +1,6 @@
 # dotfiles
 
-Nord themed keyboard-driven minimalist developer environment
+Nord themed keyboard-driven minimalist developer environment with the Qtile window manager
 
 
 ## Requirements
@@ -8,7 +8,7 @@ Nord themed keyboard-driven minimalist developer environment
 - Neovim
   - node, yum
 - 
-- i3
+- i3 (pretty much default, use my Qtile config instead)
   - `i3 i3status i3lock`
-- i3, Qtile, spectrwm, ...
+- Qtile
   - `feh alacritty picom (jonaburg) rofi`

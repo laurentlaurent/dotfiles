@@ -118,16 +118,35 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown()),
 ]
 
-groups = [Group(i) for i in "asdfuiop"]
+def go_to_group(group):
+    def f(qtile):
+        if group in '123':
+            qtile.cmd_to_screen(0)
+            qtile.groupMap[group].cmd_toscreen()
+        elif group in '4567':
+            qtile.cmd_to_screen(1)
+            qtile.groupMap[group].cmd_toscreen()
+        else:
+            qtile.cmd_to_screen(2)
+            qtile.groupMap[group].cmd_toscreen()   
 
-for i in groups:
-    keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen()),
+    return f
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
-    ])
+keys = []
+for i in '1234567890':
+    keys.append(Key([mod], i, lazy.function(go_to_group(i)))),
+    keys.append(Key([mod, 'shift'], i, lazy.window.togroup(i)))
+
+# groups = [Group(i) for i in "asdfuiop"]
+
+# for i in groups:
+#     keys.extend([
+#         # mod1 + letter of group = switch to group
+#         Key([mod], i.name, lazy.group[i.name].toscreen()),
+
+#         # mod1 + shift + letter of group = switch to & move focused window to group
+#         Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+#     ])
 
 layout_theme = {
         "border_width": 3,
@@ -181,48 +200,55 @@ default_bar_arr = [
         **widget_theme
         )
 ]
+
+
+main_bar_arr = [
+    widget.CurrentLayoutIcon(scale = 0.7, **widget_theme),
+    widget.CurrentLayout(**widget_theme),
+    widget.GroupBox(
+        active=nordColor1,
+        this_current_screen_border=nordColor1,
+        inactive=nordColor2,
+        **widget_theme
+        ),
+    widget.Prompt(
+        **widget_theme
+        ),
+    widget.WindowName(
+        **widget_theme
+        ),
+    widget.WindowCount(
+        text_format='[win_open: {num}]',
+        **widget_theme
+        ),
+    widget.Memory(
+        format='[mem_usage: {MemUsed: .0f}MB]',
+        **widget_theme
+        ),
+    widget.CPU(
+        format='[cpu_usage: {load_percent}]',
+        **widget_theme
+        ),
+    widget.WidgetBox(
+        widgets = [
+                widget.Systray(
+                    **widget_theme
+                )
+        ],
+        **widget_theme
+        ),
+    widget.Clock(
+        format='%Y-%m-%d %a %I:%M %p',
+        **widget_theme
+        )
+]
+
 # Defining main screen bar
-main_screen_bar = bar.Bar(
-    [
-        widget.CurrentLayoutIcon(scale = 0.7, **widget_theme),
-        widget.CurrentLayout(**widget_theme),
-        widget.GroupBox(
-            active=nordColor1,
-            this_current_screen_border=nordColor1,
-            inactive=nordColor2,
-            **widget_theme
-            ),
-        widget.Prompt(
-            **widget_theme
-            ),
-        widget.WindowName(
-            **widget_theme
-            ),
-        widget.WindowCount(
-            text_format='[win_open: {num}]',
-            **widget_theme
-            ),
-        widget.Memory(
-            format='[mem_usage: {MemUsed: .0f}MB]',
-            **widget_theme
-            ),
-        widget.CPU(
-            format='[cpu_usage: {load_percent}]',
-            **widget_theme
-            ),
-        widget.WidgetBox(
-            widgets = [
-                    widget.Systray(
-                        **widget_theme
-                    )
-                ],
-            **widget_theme
-            ),
-        widget.Clock(
-            **widget_theme,
-            format='%Y-%m-%d %a %I:%M %p'
-            ),
-    ],
+main_screen_bar = bar.Bar(main_bar_arr,
+    24, margin=[10, 7, 3, 7] # N E S W
+)
+
+other_screen_bar = bar.Bar(default_bar_arr,
     24, margin=[10, 7, 3, 7] # N E S W
 )
 
@@ -230,6 +256,9 @@ screens = [
     Screen(
        top=main_screen_bar,
     ),
+    Screen(
+       top=other_screen_bar,
+    )
 ]
 
 # Drag floating layouts.
