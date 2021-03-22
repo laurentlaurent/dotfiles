@@ -12,3 +12,4 @@ Nord themed keyboard-driven minimalist developer environment with the Qtile wind
   - `i3 i3status i3lock`
 - Qtile
   - `feh alacritty picom (jonaburg) rofi`
+	- AUR: `picom (jonaburg) nerd-fonts-fira-code`

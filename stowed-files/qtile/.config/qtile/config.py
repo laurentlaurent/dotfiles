@@ -203,6 +203,12 @@ extra_widgets = [
         fmt='[{}]',
         format='%Y-%m-%d %a %I:%M %p',
         **widget_theme
+        ),
+    widget.Pomodoro(
+        fmt='[{}]',
+        color_active=nordColor1,
+        color_inactive=nordColor2,
+        **widget_theme
         )
 ]
 

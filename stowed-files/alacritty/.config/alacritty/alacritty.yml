@@ -111,7 +111,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: monospace
+    family: FiraCode Nerd Font
     # family: SauceCodePro Nerd Font
     # family: RobotoMono Nerd Font 
 
