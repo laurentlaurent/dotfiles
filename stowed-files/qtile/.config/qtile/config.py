@@ -146,6 +146,8 @@ layouts = [
 ]
 
 widget_theme = {
+        "font": 'FiraCode Nerd Font',
+        "fontsize": 16,
         "background": nordColor3,
         "foreground": nordColor1,
         "fontshadow": nordColor4,
@@ -204,12 +206,6 @@ extra_widgets = [
         format='%Y-%m-%d %a %I:%M %p',
         **widget_theme
         ),
-    widget.Pomodoro(
-        fmt='[{}]',
-        color_active=nordColor1,
-        color_inactive=nordColor2,
-        **widget_theme
-        )
 ]
 
 # Creating main bar
@@ -217,7 +213,7 @@ mainbar_widgets = minimal_widgets.copy()
 mainbar_widgets.extend(extra_widgets)
 
 def init_bars_with_margins(widgets):
-    return bar.Bar(widgets, 24, margin=[10, 7, 3, 7]) # N E S W
+    return bar.Bar(widgets, 28, margin=[10, 7, 3, 7]) # N E S W
 
 # Wrapping main screen bar
 main_screen_bar = init_bars_with_margins(mainbar_widgets)
