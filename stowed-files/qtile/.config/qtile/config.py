@@ -118,35 +118,15 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown()),
 ]
 
-def go_to_group(group):
-    def f(qtile):
-        if group in '123':
-            qtile.cmd_to_screen(0)
-            qtile.groupMap[group].cmd_toscreen()
-        elif group in '4567':
-            qtile.cmd_to_screen(1)
-            qtile.groupMap[group].cmd_toscreen()
-        else:
-            qtile.cmd_to_screen(2)
-            qtile.groupMap[group].cmd_toscreen()   
+groups = [Group(i) for i in "asdfuiop"]
 
-    return f
-
-keys = []
-for i in '1234567890':
-    keys.append(Key([mod], i, lazy.function(go_to_group(i)))),
-    keys.append(Key([mod, 'shift'], i, lazy.window.togroup(i)))
-
-# groups = [Group(i) for i in "asdfuiop"]
-
-# for i in groups:
-#     keys.extend([
-#         # mod1 + letter of group = switch to group
-#         Key([mod], i.name, lazy.group[i.name].toscreen()),
-
-#         # mod1 + shift + letter of group = switch to & move focused window to group
-#         Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
-#     ])
+for i in groups:
+    keys.extend([
+        # mod1 + letter of group = switch to group
+        Key([mod], i.name, lazy.group[i.name].toscreen()),
+         # mod1 + shift + letter of group = switch to & move focused window to group
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+    ])
 
 layout_theme = {
         "border_width": 3,
@@ -180,12 +160,11 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 # Defining default bar array
-default_bar_arr = [
-    widget.CurrentLayoutIcon(scale = 0.7, **widget_theme),
-    widget.CurrentLayout(**widget_theme),
+minimal_widgets = [
     widget.GroupBox(
         active=nordColor1,
         this_current_screen_border=nordColor1,
+        this_screen_border=nordColor2,
         inactive=nordColor2,
         **widget_theme
         ),
@@ -195,32 +174,15 @@ default_bar_arr = [
     widget.WindowName(
         **widget_theme
         ),
+    widget.CurrentLayout(fmt='[{}]', **widget_theme),
     widget.WindowCount(
         text_format='[win_open: {num}]',
         **widget_theme
         )
 ]
 
-
-main_bar_arr = [
-    widget.CurrentLayoutIcon(scale = 0.7, **widget_theme),
-    widget.CurrentLayout(**widget_theme),
-    widget.GroupBox(
-        active=nordColor1,
-        this_current_screen_border=nordColor1,
-        inactive=nordColor2,
-        **widget_theme
-        ),
-    widget.Prompt(
-        **widget_theme
-        ),
-    widget.WindowName(
-        **widget_theme
-        ),
-    widget.WindowCount(
-        text_format='[win_open: {num}]',
-        **widget_theme
-        ),
+# More information on the main bar
+extra_widgets = [
     widget.Memory(
         format='[mem_usage: {MemUsed: .0f}MB]',
         **widget_theme
@@ -238,19 +200,23 @@ main_bar_arr = [
         **widget_theme
         ),
     widget.Clock(
+        fmt='[{}]',
         format='%Y-%m-%d %a %I:%M %p',
         **widget_theme
         )
 ]
 
-# Defining main screen bar
-main_screen_bar = bar.Bar(main_bar_arr,
-    24, margin=[10, 7, 3, 7] # N E S W
-)
+# Creating main bar
+mainbar_widgets = minimal_widgets.copy()
+mainbar_widgets.extend(extra_widgets)
 
-other_screen_bar = bar.Bar(default_bar_arr,
-    24, margin=[10, 7, 3, 7] # N E S W
-)
+def init_bars_with_margins(widgets):
+    return bar.Bar(widgets, 24, margin=[10, 7, 3, 7]) # N E S W
+
+# Wrapping main screen bar
+main_screen_bar = init_bars_with_margins(mainbar_widgets)
+# Wrapping secondary screen bar
+other_screen_bar = init_bars_with_margins(minimal_widgets)
 
 screens = [
     Screen(
