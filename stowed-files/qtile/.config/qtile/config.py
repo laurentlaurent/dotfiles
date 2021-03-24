@@ -88,7 +88,8 @@ keys = [
     Key([mod, "control"], "m", lazy.layout.maximize()),
 
     # Switch window focus to other pane(s) of stack
-    Key([mod], "space", lazy.layout.next()),
+    Key([mod], "space", lazy.next_screen()),
+    Key([mod, "shift"], "space", lazy.layout.next()),
 
     # Swap panes of split stack
     Key([mod, alt], "space", 
@@ -104,13 +105,15 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod, "shift"], "Tab", lazy.prev_layout()),
     Key([mod], "Tab", lazy.next_layout()),
-    Key([mod], "w", lazy.window.kill()),
+    Key([mod, "shift"], "q", lazy.window.kill()),
 
     # Applications launching
     Key([mod], "r", lazy.spawn(myLauncher)),
     Key([mod, "shift"], "r", lazy.spawncmd()), 
+    Key([mod], "q", lazy.spawn(myTerm)),
     Key([mod], "Return", lazy.spawn(myTerm)),
     Key([mod], "Home", lazy.spawn(myBrowser)),
+    Key([mod], "t", lazy.spawn(myBrowser)),
     Key([mod], "End", lazy.spawn(myTwitchChat)),
     
     # QTile control
@@ -130,15 +133,15 @@ for i in groups:
 
 layout_theme = {
         "border_width": 3,
-        "margin": 5,
+        "margin": 8,
         "border_focus": "8fbcbb",
         "border_normal": "4c566a"
         }
 
 layouts = [
-    layout.Bsp(**layout_theme),
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
+    layout.Bsp(**layout_theme),
     layout.Stack(num_stacks=2, **layout_theme),
     layout.Max(**layout_theme),
     layout.Floating(**layout_theme),
@@ -162,26 +165,29 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 # Defining default bar array
-minimal_widgets = [
-    widget.GroupBox(
-        active=nordColor1,
-        this_current_screen_border=nordColor1,
-        this_screen_border=nordColor2,
-        inactive=nordColor2,
-        **widget_theme
-        ),
-    widget.Prompt(
-        **widget_theme
-        ),
-    widget.WindowName(
-        **widget_theme
-        ),
-    widget.CurrentLayout(fmt='[{}]', **widget_theme),
-    widget.WindowCount(
-        text_format='[win_open: {num}]',
-        **widget_theme
-        )
-]
+def init_minimal_widgets():
+    minimal_widgets = []
+    minimal_widgets.extend([
+        widget.GroupBox(
+            active=nordColor1,
+            this_current_screen_border="8fbcbb",
+            this_screen_border="4c566a",
+            inactive=nordColor2,
+            **widget_theme
+            ),
+        widget.Prompt(
+            **widget_theme
+            ),
+        widget.WindowName(
+            **widget_theme
+            ),
+        widget.CurrentLayout(fmt='[{}]', **widget_theme),
+        widget.WindowCount(
+            text_format='[win_open: {num}]',
+            **widget_theme
+            )
+        ])
+    return minimal_widgets
 
 # More information on the main bar
 extra_widgets = [
@@ -209,16 +215,22 @@ extra_widgets = [
 ]
 
 # Creating main bar
-mainbar_widgets = minimal_widgets.copy()
-mainbar_widgets.extend(extra_widgets)
+def get_mainbar_widgets():
+    mainbar_widgets = init_minimal_widgets()
+    mainbar_widgets.extend(extra_widgets)
+    return mainbar_widgets
+
+def get_otherbar_widgets():
+    otherbar_widgets = init_minimal_widgets()
+    return otherbar_widgets
 
 def init_bars_with_margins(widgets):
-    return bar.Bar(widgets, 28, margin=[10, 7, 3, 7]) # N E S W
+    return bar.Bar(widgets, opacity=0.5, size=28, margin=[10, 7, 3, 7]) # N E S W
 
 # Wrapping main screen bar
-main_screen_bar = init_bars_with_margins(mainbar_widgets)
+main_screen_bar = init_bars_with_margins(get_mainbar_widgets())
 # Wrapping secondary screen bar
-other_screen_bar = init_bars_with_margins(minimal_widgets)
+other_screen_bar = init_bars_with_margins(get_otherbar_widgets())
 
 screens = [
     Screen(
@@ -263,6 +275,10 @@ floating_layout = layout.Floating(float_rules=[
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
+@hook.subscribe.screen_change
+def restart_on_sceen_change(qtile, ev):
+    qtile.cmd_restart()
+    
 @hook.subscribe.startup
 def autostart_alyways():
     home = os.path.expanduser('~/.config/qtile/autostart_always.sh')

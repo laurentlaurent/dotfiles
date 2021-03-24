@@ -1,7 +1,8 @@
 # dotfiles
 
-Nord themed keyboard-driven minimalist developer environment with the Qtile window manager
+Nord themed keyboard-driven minimalist developer environment with the [Qtile](http://www.qtile.org/) window manager. Hacked together with python and bash scripts inspired from [Qtile examples](https://github.com/qtile/qtile-examples).
 
+The included scripts expect dotfiles to be at `~/dotfiles/`
 
 ## Requirements
 
@@ -12,4 +13,4 @@ Nord themed keyboard-driven minimalist developer environment with the Qtile wind
   - `i3 i3status i3lock`
 - Qtile
   - `feh alacritty picom (jonaburg) rofi`
-	- AUR: `picom (jonaburg) nerd-fonts-fira-code`
+	- AUR: `picom (jonaburg) nerd-fonts-fira-code oh-my-zsh`
