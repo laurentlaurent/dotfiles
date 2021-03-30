@@ -39,6 +39,7 @@ alt = "mod1"
 myTerm = "alacritty"
 myBrowser = "firefox-developer-edition"
 myLauncher = "rofi -show run"
+myDLauncher = "rofi -show drun"
 myTwitchChat = "alacritty tc connect iamL2"
 
 nordColor1 = "#81a1c1"
@@ -85,17 +86,19 @@ keys = [
         lazy.layout.grow_right()
         ),
     Key([mod, "control"], "n", lazy.layout.normalize()),
+    Key([mod, alt], "f", lazy.window.toogle_floating()),
+    #Key([mod, "control"], "f", lazy.toggle_fullscreen()),
     Key([mod, "control"], "m", lazy.layout.maximize()),
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.next_screen()),
-    Key([mod, "shift"], "space", lazy.layout.next()),
+    Key([mod, "shift"], "space", lazy.prev_screen()),
 
     # Swap panes of split stack
     Key([mod, alt], "space", 
         lazy.layout.rotate(), 
-        lazy.layout.flip()),
-
+        lazy.layout.flip()
+        ),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
@@ -105,15 +108,16 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod, "shift"], "Tab", lazy.prev_layout()),
     Key([mod], "Tab", lazy.next_layout()),
-    Key([mod, "shift"], "q", lazy.window.kill()),
+    Key([mod], "c", lazy.window.kill()),
 
     # Applications launching
-    Key([mod], "r", lazy.spawn(myLauncher)),
+    Key([mod], "r", lazy.spawn(myDLauncher)),
+    Key([mod], "slash", lazy.spawn(myLauncher)),
     Key([mod, "shift"], "r", lazy.spawncmd()), 
-    Key([mod], "q", lazy.spawn(myTerm)),
+    Key([mod], "t", lazy.spawn(myTerm)),
     Key([mod], "Return", lazy.spawn(myTerm)),
     Key([mod], "Home", lazy.spawn(myBrowser)),
-    Key([mod], "t", lazy.spawn(myBrowser)),
+    Key([mod], "b", lazy.spawn(myBrowser)),
     Key([mod], "End", lazy.spawn(myTwitchChat)),
     
     # QTile control
@@ -121,7 +125,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown()),
 ]
 
-groups = [Group(i) for i in "asdfuiop"]
+groups = [Group(i) for i in "asdfuiop12345"]
 
 for i in groups:
     keys.extend([
