@@ -2,7 +2,7 @@
 
 Nord themed keyboard-driven minimalist developer environment with the [Qtile](http://www.qtile.org/) window manager. Hacked together with python and bash scripts inspired from [Qtile examples](https://github.com/qtile/qtile-examples).
 
-The included scripts expect dotfiles to be at `~/dotfiles/`
+The included scripts expect this repo to be cloned at `~/dotfiles/`
 
 ## Requirements
 
