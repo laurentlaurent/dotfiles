@@ -40,6 +40,7 @@ myTerm = "alacritty"
 myBrowser = "firefox-developer-edition"
 myLauncher = "rofi -show run"
 myDLauncher = "rofi -show drun"
+myEditor = "emacs"
 myTwitchChat = "alacritty tc connect iamL2"
 
 nordColor1 = "#81a1c1"
@@ -114,6 +115,7 @@ keys = [
     Key([mod], "r", lazy.spawn(myDLauncher)),
     Key([mod], "slash", lazy.spawn(myLauncher)),
     Key([mod, "shift"], "r", lazy.spawncmd()), 
+    Key([mod], "e", lazy.spawn(myEditor)),
     Key([mod], "t", lazy.spawn(myTerm)),
     Key([mod], "Return", lazy.spawn(myTerm)),
     Key([mod], "Home", lazy.spawn(myBrowser)),
