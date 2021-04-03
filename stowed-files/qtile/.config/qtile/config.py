@@ -43,10 +43,19 @@ myDLauncher = "rofi -show drun"
 myEditor = "emacs"
 myTwitchChat = "alacritty tc connect iamL2"
 
+# Nord Colors
 nordColor1 = "#81a1c1"
 nordColor2 = "#434c5e"
 nordColor3 = "#3b4252"
 nordColor4 = "#2e3440"
+
+# Setting Qtile colors
+mycolor_layout_borderfocus = "#8fbcbb"
+mycolor_layout_bordernormal = "#4c566a"
+mycolor_layout_inactive = "#434c5e"
+mycolor_widget_background = "#3b4252"
+mycolor_widget_foreground = "#81a1c1"
+mycolor_widget_fontshadow = "#2e3440"
 
 keys = [
     # Switch between windows in current stack pane
@@ -140,8 +149,8 @@ for i in groups:
 layout_theme = {
         "border_width": 3,
         "margin": 8,
-        "border_focus": "8fbcbb",
-        "border_normal": "4c566a"
+        "border_focus": mycolor_layout_borderfocus,
+        "border_normal": mycolor_layout_bordernormal 
         }
 
 layouts = [
@@ -157,9 +166,9 @@ layouts = [
 widget_theme = {
         "font": 'FiraCode Nerd Font',
         "fontsize": 16,
-        "background": nordColor3,
-        "foreground": nordColor1,
-        "fontshadow": nordColor4,
+        "background": mycolor_widget_background,
+        "foreground": mycolor_widget_foreground,
+        "fontshadow": mycolor_widget_fontshadow,
         "padding": 5 
         }
 
@@ -176,9 +185,9 @@ def init_minimal_widgets():
     minimal_widgets.extend([
         widget.GroupBox(
             active=nordColor1,
-            this_current_screen_border="8fbcbb",
-            this_screen_border="4c566a",
-            inactive=nordColor2,
+            this_current_screen_border=mycolor_layout_borderfocus,
+            this_screen_border=mycolor_layout_bordernormal,
+            inactive=mycolor_layout_inactive,
             **widget_theme
             ),
         widget.Prompt(
@@ -198,11 +207,11 @@ def init_minimal_widgets():
 # More information on the main bar
 extra_widgets = [
     widget.Memory(
-        format='[mem_usage: {MemUsed: .0f}MB]',
+        format='[RAM {MemUsed: .0f}MB]',
         **widget_theme
         ),
     widget.CPU(
-        format='[cpu_usage: {load_percent}]',
+        format='[CPU {load_percent}%]',
         **widget_theme
         ),
     widget.WidgetBox(
