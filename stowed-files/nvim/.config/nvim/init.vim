@@ -38,9 +38,7 @@ nnoremap <A-Up> <C-w>k
 nnoremap <A-l> <C-w>l
 nnoremap <A-Right> <C-w>l
 
-" == SET FOLD TO SPACEBAR ==========================
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
+"	== SETTING FOLD SETTINGS =========================	
 set foldenable
 set foldmethod=syntax
 set foldlevelstart=10
@@ -74,10 +72,12 @@ set wildmenu " Finding files - displays all matching files when tab complete
 
 
 " == Key bindings remap ============================
+" setting leader key
+let mapleader="\<Space>"
+" setting insert mode escape
+inoremap jk <esc> " jk is escape
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
-let mapleader=","
-inoremap jj <esc> " jj is escape
 nnoremap <leader>u :GundoToggle<CR>
 nnoremap <leader>s :mksession<CR>
