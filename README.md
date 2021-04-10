@@ -14,3 +14,5 @@ The included scripts expect this repo to be cloned at `~` (resulting in `~/dotfi
 - Qtile
   - `feh alacritty picom (jonaburg) rofi`
 	- AUR: `picom (jonaburg) nerd-fonts-fira-code oh-my-zsh`
+- Extra programs
+  - `nitrogen ranger dunst redshift emacs (ripgrep fd) code` 

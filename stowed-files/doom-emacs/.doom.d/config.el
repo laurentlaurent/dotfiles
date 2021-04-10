@@ -35,8 +35,8 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
-
+;; (setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -55,6 +55,10 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; == MY EMACS SETTINGS =============================
+(setq x-select-enable-clipboard nil)	;; Disables auto access to system clipboard
+
+;; == EMACS PACKAGE SETTINGS ========================
 ;; nov package to read epubs
 (use-package! nov
   :mode ("\\.epub\\'" . nov-mode)
